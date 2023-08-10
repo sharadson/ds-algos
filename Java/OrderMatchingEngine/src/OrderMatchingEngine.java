@@ -1,6 +1,7 @@
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.Random;
@@ -227,7 +228,8 @@ public class OrderMatchingEngine implements Runnable {
   // This is efficient in practical scenarios when ACTIVE orders outweigh CANCELLED orders. When the CANCELLED order
   // bubbles up to the root of the heap, we just discard it. Also, there is no memory overhead or increase in memory
   // complexity as we are using existing order objects as the key and values of orders hashmap
-  Map<OrderRequest, OrderRequest> orders = new HashMap<>();
+  Map<OrderRequest, OrderRequest> orders = new HashMap<>() {
+  };
   Queue<OrderMessage> messageBus = new ConcurrentLinkedQueue<>();
   private volatile boolean running = true;
 
